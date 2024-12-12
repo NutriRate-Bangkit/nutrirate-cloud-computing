@@ -1,0 +1,15 @@
+# Ignore firebase admin config file
+utils/firebase-admin-config.json
+
+# Ignore environment variables
+.env
+
+# Ignore node_modules
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db

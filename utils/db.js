@@ -1,8 +1,14 @@
-const admin = require('firebase-admin');
-const { initializeApp } = require('firebase/app');
-const { getAuth, sendPasswordResetEmail } = require('firebase/auth');
+//utils/db.js
+const admin = require("firebase-admin");
+const { initializeApp } = require("firebase/app");
+const {
+  getAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  updatePassword,
+} = require("firebase/auth");
 
-const serviceAccount = require('./firebase-admin-config.json');
+const serviceAccount = require("./firebase-admin-config.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -22,9 +28,11 @@ const firebaseAuth = getAuth(firebaseApp);
 const auth = admin.auth();
 const db = admin.firestore();
 
-module.exports = { 
-  auth, 
-  db, 
-  firebaseAuth, 
-  sendPasswordResetEmail 
+module.exports = {
+  auth,
+  db,
+  firebaseAuth,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  updatePassword,
 };
