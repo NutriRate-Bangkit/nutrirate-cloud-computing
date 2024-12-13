@@ -1,11 +1,5 @@
 # 🥗 Nutrition API Documentation
 
-## 🌐 Base Endpoint
-
-https://nutrition-api-162761754517.asia-southeast2.run.app/
-
-## 📋 Endpoints Overview
-
 ### 🔐 Register
 
 _Endpoint:_
@@ -151,4 +145,3 @@ json
 "grade": "A"
 }
 
-_💡 Notes:_
