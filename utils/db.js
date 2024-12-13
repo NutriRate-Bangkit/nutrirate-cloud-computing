@@ -1,18 +1,23 @@
 //utils/db.js
-const admin = require("firebase-admin");
-const { initializeApp } = require("firebase/app");
-const {
-  getAuth,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
+const admin = require('firebase-admin');
+const { initializeApp } = require('firebase/app');
+const { 
+  getAuth, 
+  signInWithEmailAndPassword, 
   updatePassword,
-} = require("firebase/auth");
+  signInWithCredential,
+  EmailAuthProvider 
+} = require('firebase/auth');
 
-const serviceAccount = require("./firebase-admin-config.json");
+const serviceAccount = require('./firebase-admin-config.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// Pastikan belum diinisialisasi sebelumnya
+if (admin.apps.length === 0) {
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    storageBucket: 'nutrirate-profilepicture'  // Menambahkan bucket storage di sini
+  });
+}
 
 // Konfigurasi Firebase client-side
 const firebaseConfig = {
@@ -22,17 +27,25 @@ const firebaseConfig = {
   // ... konfigurasi lainnya dari Firebase Console
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
+// Pastikan belum diinisialisasi sebelumnya
+const firebaseApps = require('firebase/app').getApps();
+const firebaseApp = firebaseApps.length === 0 
+  ? initializeApp(firebaseConfig) 
+  : firebaseApps[0];
+
 const firebaseAuth = getAuth(firebaseApp);
 
 const auth = admin.auth();
 const db = admin.firestore();
+const bucket = admin.storage().bucket(); // Menambahkan akses ke Firebase Storage
 
-module.exports = {
-  auth,
-  db,
-  firebaseAuth,
-  sendPasswordResetEmail,
+module.exports = { 
+  auth, 
+  db, 
+  bucket,
+  firebaseAuth, 
   signInWithEmailAndPassword,
   updatePassword,
+  signInWithCredential,
+  EmailAuthProvider
 };
